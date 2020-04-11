@@ -1,0 +1,66 @@
+<script>
+
+function computerPlay()
+{
+    var rpcArray = ["Rock","Paper","Scissors"];
+    return _.sample(rpcArray);
+}
+
+function playRound(playerSelection, computerSelection)
+{
+    var result
+    var winner
+    var loser
+    if (playerSelection.toLowerCase() == "rock") {
+        if (computerSelection.toLowerCase() == "paper"){
+            result = "lose"
+            winner = computerSelection
+            loser = playerSelection
+        }
+        if (computerSelection.toLowerCase() == "scissors"){
+            result = "win"
+            winner = playerSelection
+            loser = computerSelection
+        }
+        if (computerSelection.toLowerCase() == "rock"){
+            return "tie..."
+        }
+    }
+    if (playerSelection.toLowerCase() == "paper") {
+        if (computerSelection.toLowerCase() == "scissors"){
+            result = "lose"
+            winner = computerSelection
+            loser = playerSelection
+        }
+        if (computerSelection.toLowerCase() == "rock"){
+            result = "win"
+            winner = playerSelection
+            loser = computerSelection
+        }
+        if (computerSelection.toLowerCase() == "paper"){
+            return "tie..."
+        }
+    }    
+    if (playerSelection.toLowerCase() == "scissors") {
+        if (computerSelection.toLowerCase() == "rock"){
+            result = "lose"
+            winner = computerSelection
+            loser = playerSelection
+        }
+        if (computerSelection.toLowerCase() == "paper"){
+            result = "win"
+            winner = playerSelection
+            loser = computerSelection
+        }
+        if (computerSelection.toLowerCase() == "scissors"){
+            return "tie..."
+        }  
+    }
+    return "You " + result + "! " + winner + " beats " + loser + "."
+}
+
+const playerSelection = "rock"
+const computerSelection = computerPlay()
+console.log(playRound(playerSelection,computerSelection))
+
+</script>

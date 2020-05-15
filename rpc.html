@@ -1,9 +1,213 @@
+<!DOCTYPE html>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Teko&display=swap');
+
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #45a35e;
+    }
+
+    h2 {
+        padding: 0;
+        margin: 0;
+    }
+
+    h3 {
+        padding: 0;
+        margin: 0;
+    }
+
+    p {
+        padding: 0;
+        margin: 0 10px 0 10px;
+    }
+    
+    .container {
+        display: grid;
+        padding: 0;
+        margin: 0;
+    }
+
+    .rpsButtons {
+        display: flex;
+        flex-direction: row;
+        margin: auto;
+        font-family: Verdana;
+        font-weight: bold;
+        padding: 1%;
+        justify-content: center;
+        text-align: center;
+        font-size: 2em;
+        font-family: Teko;
+    }
+
+    .button {
+        padding: 2%;
+        text-align: center;
+    }
+
+    .Icon:hover {
+        transform: scale(1.12);
+        cursor: pointer;
+    }
+
+    .infoOutput {
+        display: flex;
+        flex-direction: row;
+        margin: 0;
+        padding: 10px;
+        justify-content: center;
+        font-family: Teko;
+        font-size: 2em;
+        text-align: center;
+    }
+
+    .round {
+        padding: 0;
+        margin: 0;
+    }
+
+    .scoreboard {
+        text-align: center;
+        color: white;
+        padding: 0;
+        margin: 0;
+    }
+
+    .scores {
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .score-container {
+        padding:  0 30px 0 15px;
+        margin: 0;
+        text-align: center;
+    }
+
+    .outputGroup {
+        padding: 10px;
+        margin: 10px;
+        text-align: center;
+        color: white;
+        background-color: #292f2b;
+        border: 4px solid rgb(223, 220, 220);
+        width: 35%;
+        border-radius: 8px;
+    }
+
+    header {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        text-align: center;
+        color:aliceblue;
+        background: #292f2b;
+        padding: 10px;
+    }
+
+    .titleLogo {
+        width:auto;
+	    max-height:125px;
+    }
+
+    .user-score {
+        padding: 0 10 px 0 10px;
+        margin: 0;
+    }
+
+    footer {
+        background-color:#246134;
+        padding: .04%;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        font-family: Teko;
+    }
+
+    .rr {
+        font-size: 30px;
+    }
+
+    .clicked {
+        transform: scale(.85);
+    }
+
+</style>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rock Paper Scissors</title>
+</head>
+<body>
+    <div class="content">
+        <header><img class="titleLogo" src="rpsLogo.png" alt="Rock Paper Scissors title"></header>
+        <div class="infoOutput">
+            <div id="test_round" class="outputGroup round">
+                <h2>Round</h2>
+                <p id="result" class="rr infoOutput">Results</p>
+            </div>
+            <div class="outputGroup scoreboard">
+                <h2>Score</h2>
+                <div class="scores">
+                    <div id="user" class="score-container">
+                        <h3>You</h3>
+                        <p id="user-score" class="user-score">0</p>
+                    </div>
+                    <div id="user" class="score-container">
+                        <h3>Computer</h3>
+                        <p id="computer-score" class="user-score">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="rpsButtons">
+            <div id="Rock" class="button rockButton">
+                <img  class="Icon" src="rockButton.png" alt="Rock button"><br>
+                Rock</div>
+            <div id="Paper" class="button paperButton">
+                <img   class="Icon" src="paperButton.png" alt="Paper button"><br>
+                Paper</div>
+            <div id="Scissors" class="button scissorsButton">
+                <img   class="Icon" src="scissorsButton.png" alt="Paper button"><br>
+                Scissors</div>
+        </div>
+    <footer><p>bryanmg 2020</p></footer>
+    </div>
+
 <script>
+
+let userScore = 0;
+let computerScore = 0;
+const rock = document.getElementById("Rock");
+const paper = document.getElementById("Paper");
+const scissors = document.getElementById("Scissors");
+const userScore_p = document.getElementById("user-score");
+const computerScore_p = document.getElementById("computer-score");
+const result_p = document.getElementById("result");
+const result_p2 = document.querySelector(".rr");
+
+function main() {
+rock.addEventListener("click", function() { playRound("rock",computerPlay())});
+paper.addEventListener("click", function() { playRound("paper",computerPlay())});
+scissors.addEventListener("click", function() { playRound("scissors",computerPlay())});
+}
+
+function test() {
+    console.log("test output");
+}
 
 function computerPlay()
 {
-    var rpcArray = ["Rock","Paper","Scissors"];
-    return _.sample(rpcArray);
+    var rpcArray = ["rock","paper","scissors"];
+    return rpcArray[Math.floor(Math.random()*rpcArray.length)];
 }
 
 function playRound(playerSelection, computerSelection)
@@ -11,56 +215,70 @@ function playRound(playerSelection, computerSelection)
     var result
     var winner
     var loser
+
+    console.log(playerSelection + " " + computerSelection)
     if (playerSelection.toLowerCase() == "rock") {
-        if (computerSelection.toLowerCase() == "paper"){
-            result = "lose"
-            winner = computerSelection
-            loser = playerSelection
+        if (computerSelection == "paper"){
+            lose("Rock","Paper");
         }
-        if (computerSelection.toLowerCase() == "scissors"){
-            result = "win"
-            winner = playerSelection
-            loser = computerSelection
+        if (computerSelection == "scissors"){
+            win("Rock", "Scissors");
         }
-        if (computerSelection.toLowerCase() == "rock"){
-            return "tie..."
+        if (computerSelection == "rock"){
+            draw("Rock", "Rock");
         }
     }
     if (playerSelection.toLowerCase() == "paper") {
-        if (computerSelection.toLowerCase() == "scissors"){
-            result = "lose"
-            winner = computerSelection
-            loser = playerSelection
+        if (computerSelection == "scissors"){
+            lose("Paper","Scissors");
         }
-        if (computerSelection.toLowerCase() == "rock"){
-            result = "win"
-            winner = playerSelection
-            loser = computerSelection
+        if (computerSelection == "rock"){
+            win("Paper","Rock");
         }
-        if (computerSelection.toLowerCase() == "paper"){
-            return "tie..."
+        if (computerSelection == "paper"){
+            draw("Paper","Paper");
         }
     }    
     if (playerSelection.toLowerCase() == "scissors") {
-        if (computerSelection.toLowerCase() == "rock"){
-            result = "lose"
-            winner = computerSelection
-            loser = playerSelection
+        if (computerSelection == "rock"){
+            lose("Scissors","Rock");
         }
-        if (computerSelection.toLowerCase() == "paper"){
-            result = "win"
-            winner = playerSelection
-            loser = computerSelection
+        if (computerSelection == "paper"){
+            win("Scissors","Paper")
         }
-        if (computerSelection.toLowerCase() == "scissors"){
-            return "tie..."
+        if (computerSelection == "scissors"){
+            draw("Scissors","Scissors");
         }  
     }
-    return "You " + result + "! " + winner + " beats " + loser + "."
 }
 
-const playerSelection = "rock"
-const computerSelection = computerPlay()
-console.log(playRound(playerSelection,computerSelection))
+function win(playerSelection, computerSelection) {
+    userScore++;
+    userScore_p.innerHTML = userScore;
+    computerScore_p.innerHTML = computerScore;
+    result_p2.innerHTML = `You win! ${playerSelection} beats ${computerSelection}.`;
+    document.getElementById(playerSelection).classList.add('clicked');
+    setTimeout(function() { document.getElementById(playerSelection).classList.remove('clicked')},100);
+}
+
+function lose(playerSelection, computerSelection) {
+    computerScore++;
+    userScore_p.innerHTML = userScore;
+    computerScore_p.innerHTML = computerScore;
+    result_p2.innerHTML = `You lose. ${computerSelection} beats ${playerSelection}.`;
+    document.getElementById(playerSelection).classList.add('clicked');
+    setTimeout(function() { document.getElementById(playerSelection).classList.remove('clicked')},100);
+}
+
+function draw(playerSelection, computerSelection) {
+    result_p2.innerHTML = "A tie...";
+    document.getElementById(playerSelection).classList.add('clicked');
+    setTimeout(function() { document.getElementById(playerSelection).classList.remove('clicked')},100);
+}
+
+main();
 
 </script>
+
+</body>
+</html>
